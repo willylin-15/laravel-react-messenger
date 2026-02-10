@@ -23,6 +23,10 @@ const ChatLayout = ({ children }) => {
             .error((error) => {
                 console.error("error", error);
             });
+
+        return () => {
+            Echo.leave("online");
+        };
     }, []);
 
     return (
