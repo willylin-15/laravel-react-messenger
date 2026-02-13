@@ -33,11 +33,11 @@ class Group extends Model
     public static function getGroupsForUser(User $user)
     {
         $query = self::select(['groups.*', 'messages.message as last_message', 'messages.created_at as last_message_date'])
-        ->join('group_users','group_users.group_id','=','groups.id')
-        ->leftJoin('messages','messages.id','=','groups.last_message_id')
-        ->where('group_users.user_id', $user->id)
-        ->orderBy('messages.created_at','desc')
-        ->orderBy('groups.name');
+            ->join('group_users', 'group_users.group_id', '=', 'groups.id')
+            ->leftJoin('messages', 'messages.id', '=', 'groups.last_message_id')
+            ->where('group_users.user_id', $user->id)
+            ->orderBy('messages.created_at', 'desc')
+            ->orderBy('groups.name');
 
         return $query->get();
     }
@@ -49,7 +49,7 @@ class Group extends Model
             'name' => $this->name,
             'description' => $this->description,
             'is_group' => true,
-            'is_user'=> false,
+            'is_user' => false,
             'owner_id' => $this->owner_id,
             'users' => $this->users,
             'user_ids' => $this->users->pluck('id'),
@@ -58,5 +58,13 @@ class Group extends Model
             'last_message' => $this->last_message,
             'last_message_date' => $this->last_message_date,
         ];
+    }
+
+    public static function updateGroupWithMessage($groupId, $message)
+    {
+        return self::updateOrCreate(
+            ['id' => $groupId],
+            ['last_message_id' => $message->id]
+        );
     }
 }
