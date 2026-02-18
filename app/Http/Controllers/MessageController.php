@@ -93,7 +93,7 @@ class MessageController extends Controller
                 $attachment = MessageAttachment::create($model);
                 $attachments[] = $attachment;
             }
-            $message->load('attachments');
+            $message->setRelation('attachments', collect($attachments));
         }
 
         if ($receiverId) {
