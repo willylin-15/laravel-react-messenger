@@ -7,11 +7,11 @@
 }
 
 .EmojiPickerReact.epr-dark-theme {
-    background-color: theme('colors.gray.800');
+    background-color: theme("colors.gray.800");
 }
 
 .EmojiPickerReact.epr-dark-theme .epr-emoji-category-label {
-    background-color: theme('colors.gray.900');
+    background-color: theme("colors.gray.900");
 }
 
 .conversation-item .avatar.avatar-online::before,
@@ -85,7 +85,7 @@
 }
 
 .chat-message-content code {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     font-style: italic;
     padding: 2px 4px;
     border-radius: 6px;

@@ -27,26 +27,38 @@ export default function AuthenticatedLayout({ header, children }) {
                 ].sort((a, b) => a - b).join("-")}`;
             }
 
-            Echo.private(channel).error((error) => {
-                console.error(error);
-            }).listen("SocketMessage", (e) => {
-                console.log("SocketMessage", e);
-                const message = e.message;
+            Echo.private(channel)
+                .error((error) => {
+                    console.error(error);
+                })
+                .listen("SocketMessage", (e) => {
+                    console.log("SocketMessage", e);
+                    const message = e.message;
 
-                emit("message.created", message);
-                if (message.sender_id === user.id) {
-                    return;
-                }
+                    emit("message.created", message);
+                    if (message.sender_id === user.id) {
+                        return;
+                    }
 
-                emit("newMessageNotification", {
-                    user: message.sender,
-                    group_id: message.group_id,
-                    message:
-                        message.message ||
-                        `Shared ${message.attachments.length === 1 ? "an attachment" : message.attachments.length + "attachments"
-                        }`,
+                    emit("newMessageNotification", {
+                        user: message.sender,
+                        group_id: message.group_id,
+                        message:
+                            message.message ||
+                            `Shared ${message.attachments.length === 1 ? "an attachment" : message.attachments.length + "attachments"
+                            }`,
+                    });
                 });
-            });
+
+            if (conversation.is_group) {
+                Echo.private(`group.deleted.${conversation.id}`)
+                    .listen("GroupDeleted", (e) => {
+                        emit("group.deleted", { id: e.id, name: e.name });
+                    })
+                    .error((e) => {
+                        console.error(e);
+                    });
+            }
         });
 
         return () => {
@@ -60,6 +72,10 @@ export default function AuthenticatedLayout({ header, children }) {
                     ].sort((a, b) => a - b).join("-")}`;
                 }
                 Echo.leave(channel);
+
+                if (conversation.is_group) {
+                    Echo.leave(`group.deleted.${conversation.id}`);
+                }
             });
         };
     }, [conversations]);
