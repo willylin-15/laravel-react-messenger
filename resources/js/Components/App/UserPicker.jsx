@@ -44,7 +44,7 @@ export default function UserPicker({ value, options, onSelect }) {
                                     Nothing found.
                                 </div>
                             ) : (filteredPeople.map((person) => (
-                                <ComboboxOption key={person.id} value={person} className={({ focus }) => `relative cursor-default select-none py-2 pl-10 pr-4 ${focus ? "bg-teal-600 text-white" : "bg-gray-900 text-gray-100"}`}>
+                                <ComboboxOption key={person.id} value={person} className={({ focus }) => `relative cursor-default select-none py-2 pl-10 pr-4 ${focus ? " bg-teal-600 text-white" : " bg-gray-900 text-gray-100"}`}>
                                     {({ selected, focus }) => (
                                         <>
                                             <span className={`block truncate ${selected ? "font-medium" : "font-normal"}`}>

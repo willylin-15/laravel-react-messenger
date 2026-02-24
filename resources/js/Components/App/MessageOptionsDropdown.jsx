@@ -42,7 +42,7 @@ export default function MessageOptionsDropdown({ message }) {
                                 {({ focus }) => (
                                     <button
                                         onClick={onMessageDelete}
-                                        className={`${focus ? "bg-black/30 text-white" : "text-gray-100"} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                        className={`${focus ? " bg-black/30 text-white" : " text-gray-100"} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                     >
                                         <TrashIcon className=" w-4 h-4 mr-2" />
                                         Delete

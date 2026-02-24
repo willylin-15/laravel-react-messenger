@@ -155,7 +155,7 @@ const MessageInput = ({ conversation = null }) => {
                             key={file.file.name}
                             className={
                                 `relative flex justify-between cursor-pointer` +
-                                (!isImage(file.file) ? "w-[240px]" : "")
+                                (!isImage(file.file) ? " w-[240px]" : "")
                             }
                         >
                             {isImage(file.file) && (

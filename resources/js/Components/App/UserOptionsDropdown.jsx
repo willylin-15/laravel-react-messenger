@@ -2,8 +2,11 @@ import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/r
 import { Fragment } from "react";
 import { EllipsisVerticalIcon, LockClosedIcon, LockOpenIcon, ShieldCheckIcon, UserIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
+import { useEventBus } from "@/EventBus";
 
 export default function UserOptionsDropdown({ conversation }) {
+    const { emit } = useEventBus();
+
     const changeUserRole = () => {
         console.log("Change user role");
         if (!conversation.is_user) {
@@ -13,6 +16,7 @@ export default function UserOptionsDropdown({ conversation }) {
         axios
             .post(route("user.changeRole", conversation.id))
             .then((res) => {
+                emit("toast.show", res.data.message);
                 console.log(res.data);
             })
             .catch((err) => {
@@ -29,6 +33,7 @@ export default function UserOptionsDropdown({ conversation }) {
         axios
             .post(route("user.blockUnblock", conversation.id))
             .then((res) => {
+                emit("toast.show", res.data.message);
                 console.log(res.data);
             })
             .catch((err) => {
@@ -59,7 +64,7 @@ export default function UserOptionsDropdown({ conversation }) {
                                 {({ focus }) => (
                                     <button
                                         onClick={onBlockUser}
-                                        className={`${focus ? "bg-black/30 text-white" : "text-gray-100"} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                        className={`${focus ? " bg-black/30 text-white" : " text-gray-100"} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                     >
                                         {conversation.blocked_at && (
                                             <>

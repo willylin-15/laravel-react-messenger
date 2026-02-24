@@ -36,9 +36,9 @@ const ConversationItem = ({
             }
             preserveState
             className={
-                "conversation-item flex items-center gap-2 p-2 text-gray-300 transition-all cursor-pointer border-l-4 hover:bg-black/30" +
+                "conversation-item flex items-center gap-2 p-2 text-gray-300 transition-all cursor-pointer border-l-4 hover:bg-black/30 " +
                 classes +
-                (conversation.is_user && currentUser.is_admin ? "pr-2" : "pr-4")
+                (conversation.is_user && currentUser.is_admin ? " pr-2" : " pr-4")
             }
         >
             {conversation.is_user && (
@@ -47,7 +47,7 @@ const ConversationItem = ({
             {conversation.is_group && <GroupAvatar />}
             <div className={
                 `flex-1 text-xs max-w-full overflow-hidden` +
-                (conversation.is_user && conversation.blocked_at ? "opacity-50" : "")
+                (conversation.is_user && conversation.blocked_at ? " opacity-50" : "")
             }>
                 <div className=" flex gap-1 justify-between items-center">
                     <h3 className=" text-sm font-semibold overflow-hidden text-nowrap text-ellipsis">
